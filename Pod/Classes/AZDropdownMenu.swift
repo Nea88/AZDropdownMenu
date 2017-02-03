@@ -26,7 +26,15 @@ open class AZDropdownMenu: UIView {
     open var cellTapHandler : ((_ indexPath:IndexPath) -> Void)?
 
     // MARK: - Configuration options
+    /// Vertical indent
 
+    open var indent: CGFloat = 0 {
+        didSet {
+            let menuFrame = CGRect(origin: CGPoint(x: 0,y :indent), size: CGSize(width: frame.size.width, height: menuHeight))
+            self.menuView.frame = menuFrame
+        }
+    }
+    
     /// Row height of the menu item
     open var itemHeight : Int = 44 {
         didSet {
