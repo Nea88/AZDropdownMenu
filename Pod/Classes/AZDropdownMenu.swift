@@ -281,7 +281,7 @@ open class AZDropdownMenu: UIView {
         )
     }
     
-    public func showMenuFromView(view:UIView, withIndent indent:CGFLoat) {
+    public func showMenuFromView(view:UIView, withIndent indent:CGFloat) {
 
         view.addSubview(self)
 
