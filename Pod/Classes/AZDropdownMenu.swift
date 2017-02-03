@@ -288,26 +288,6 @@ open class AZDropdownMenu: UIView {
             }
         )
     }
-    
-    public func showMenuFromView(view:UIView, withIndent indent:CGFloat) {
-
-        view.addSubview(self)
-
-        animateOvelay(overlayAlpha, interval: 0.4, completionHandler: nil)
-        menuView.reloadData()
-        UIView.animateWithDuration(
-            0.2,
-            delay:0,
-            usingSpringWithDamping: 0.9,
-            initialSpringVelocity: 0.6,
-            options:[],
-            animations: {
-                self.frame.origin.y = view.frame.origin.y
-                }, completion: { (finished : Bool) -> Void in
-                self.initialMenuCenter = self.menuView.center + indent
-            }
-        )
-    }
 
     open func showMenuFromRect(_ rect:CGRect) {
         let window = UIApplication.shared.keyWindow!
