@@ -12,7 +12,7 @@ open class AZDropdownMenu: UIView {
 
     fileprivate let DROPDOWN_MENU_CELL_KEY : String = "MenuItemCell"
 
-    public enum TransitionStyle {
+    public enum TransitionDirection {
         case fromTop
         case fromBottom
     }
@@ -163,9 +163,9 @@ open class AZDropdownMenu: UIView {
     fileprivate var reuseId : String?
     fileprivate var menuConfig : AZDropdownMenuConfig?
 
-    pen var transitionStyle: TransitionStyle = .fromTop {
+    pen var transitionDirection: TransitionDirection = .fromTop {
         didSet {
-            switch transitionStyle {
+            switch transitionDirection {
             case .fromBottom:
                 let center = CGPoint(x: 480, y: 600)
                 self.frame.origin.y = UIScreen.main.bounds.height
@@ -341,7 +341,7 @@ open class AZDropdownMenu: UIView {
             withDuration: 0.3, delay: 0.1,
             options: [],
             animations: {
-                switch self.transitionStyle  {
+                switch self.transitionDirection  {
                 case .fromTop: self.frame.origin.y = -1200
                 case .fromBottom: self.frame.origin.y += 1200
                 }
