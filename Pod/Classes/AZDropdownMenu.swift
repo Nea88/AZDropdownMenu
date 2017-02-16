@@ -163,7 +163,7 @@ open class AZDropdownMenu: UIView {
     fileprivate var reuseId : String?
     fileprivate var menuConfig : AZDropdownMenuConfig?
 
-    pen var transitionDirection: TransitionDirection = .fromTop {
+    open var transitionDirection: TransitionDirection = .fromTop {
         didSet {
             switch transitionDirection {
             case .fromBottom:
