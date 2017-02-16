@@ -12,6 +12,11 @@ open class AZDropdownMenu: UIView {
 
     fileprivate let DROPDOWN_MENU_CELL_KEY : String = "MenuItemCell"
 
+    public enum TransitionStyle {
+        case fromTop
+        case fromBottom
+    }
+    
     /// The dark overlay behind the menu
     fileprivate let overlay:UIView = UIView()
     fileprivate var menuView: UITableView!
@@ -158,6 +163,20 @@ open class AZDropdownMenu: UIView {
     fileprivate var reuseId : String?
     fileprivate var menuConfig : AZDropdownMenuConfig?
 
+    pen var transitionStyle: TransitionStyle = .fromTop {
+        didSet {
+            switch transitionStyle {
+            case .fromBottom:
+                let center = CGPoint(x: 480, y: 600)
+                self.frame.origin.y = UIScreen.main.bounds.height
+                self.initialMenuCenter = center
+            case .fromTop:
+                let center = CGPoint(x: 0, y: 0)
+                self.initialMenuCenter = center                
+            }
+        }
+    }
+    
     // MARK: - Initializer
     public init(titles:[String]) {
         self.isSetUpFinished = false
@@ -292,7 +311,7 @@ open class AZDropdownMenu: UIView {
     open func showMenuFromRect(_ rect:CGRect) {
         let window = UIApplication.shared.keyWindow!
 
-        let menuFrame = CGRect(origin: CGPoint(x: 0,y :rect.origin.y), size: CGSize(width: frame.size.width, height: menuHeight))
+        let menuFrame = CGRect(origin: CGPoint(x: rect.origin.x, y :rect.origin.y), size: CGSize(width: rect.size.width, height: menuHeight))
 
         self.menuView.frame = menuFrame
 
@@ -322,7 +341,10 @@ open class AZDropdownMenu: UIView {
             withDuration: 0.3, delay: 0.1,
             options: [],
             animations: {
-                self.frame.origin.y = -1200
+                switch self.transitionStyle  {
+                case .fromTop: self.frame.origin.y = -1200
+                case .fromBottom: self.frame.origin.y += 1200
+                }
             },
             completion: { (finished: Bool) -> Void in
                 self.menuView.center = self.initialMenuCenter
